@@ -127,7 +127,7 @@ export default function ClientPage({ initialCars }: { initialCars: any[] }) {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/40 via-[#0A0A0A]/80 to-[#0A0A0A] z-10" />
           {/* Placeholder for Hero Image - In a real app this would be an actual image */}
-          <div className="absolute inset-0 bg-neutral-900 bg-[url('https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&q=80&w=2938')] bg-cover bg-center opacity-40 animate-scaleIn" />
+          <div className="absolute inset-0 bg-neutral-900 bg-[url('/hero-bg.jpg')] bg-cover bg-center opacity-40 animate-scaleIn" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center animate-slideUp">
