@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Car {
+  id           Int       @id @default(autoincrement())
+  brand        String
+  name         String
+  color        String?
+  price        String
+  topSpeed     String?
+  transmission String?
+  status       String    @default("Tersedia") // "Tersedia" or "Disewa"
+  image        String?
+  horsepower   String?
+  acceleration String?
+  engine       String?
+  description  String?
+  seats        Int       @default(2)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bookings     Booking[]
+}
+
+model Booking {
+  id            Int      @id @default(autoincrement())
+  carId         Int
+  car           Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  customerName  String
+  customerPhone String?
+  startDate     DateTime
+  endDate       DateTime
+  notes         String?
+  status        String   @default("PENDING") // PENDING, PAID, CANCELLED, COMPLETED
+  totalPrice    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
