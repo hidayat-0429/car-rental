@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hidayat Garage - Premium Supercar Rental 🏎️✨
 
-## Getting Started
+Hidayat Garage is a luxury and premium supercar rental platform built with modern web technologies. The platform offers a seamless booking experience and a powerful admin dashboard for managing the fleet and customer transactions.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Premium UI/UX**: Elegant dark mode design with glassmorphism, champagne accents, and fluid animations.
+- **Client-Facing Booking Flow**: 3-step seamless checkout process (Customer Info, Dates, Payment Simulation).
+- **Admin Dashboard**: Secure admin panel to manage the car fleet (CRUD operations) and track customer transactions/bookings.
+- **Fully Responsive**: Optimized for both desktop and mobile devices with thumb-friendly controls.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js](https://nextjs.org/) (App Router & Server Actions)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: PostgreSQL (Hosted on [Supabase](https://supabase.com/))
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/) (Auth.js)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js 18+
+- npm, yarn, or pnpm
+- A Supabase account (or any PostgreSQL database)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/hidayat-0429/car-rental.git
+   cd car-rental
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Setup:**
+   Create a `.env` file in the root directory and add the following variables:
+   ```env
+   # Connect to Supabase via connection pooling with Supavisor.
+   DATABASE_URL="postgresql://user:password@host:6543/postgres?pgbouncer=true&connection_limit=1"
+   
+   # Direct connection to the database. Used for migrations.
+   DIRECT_URL="postgresql://user:password@host:5432/postgres"
+   
+   # NextAuth Secret
+   AUTH_SECRET="generate_a_random_secret_here"
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Database Migration & Seeding:**
+   ```bash
+   npx prisma db push
+   npx prisma db seed
+   ```
+
+5. **Run the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 🔐 Default Admin Login
+To access the admin dashboard (`/admin` or `/login`):
+- **Username:** `hidayat`
+- **Password:** `hidayat123`
+
+*(Note: Ensure you change these default credentials if deploying to production).*
+
+---
+&copy; 2026 Hidayat Garage. All rights reserved.
