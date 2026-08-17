@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { Prisma } from '@prisma/client'
 
 export async function getCars() {
   return await prisma.car.findMany({
@@ -15,7 +16,7 @@ export async function getCarById(id: number) {
   })
 }
 
-export async function addCar(data: any) {
+export async function addCar(data: Prisma.CarCreateInput) {
   await prisma.car.create({
     data
   })
@@ -23,7 +24,10 @@ export async function addCar(data: any) {
   revalidatePath('/admin')
 }
 
-export async function updateCar(id: number, data: any) {
+export async function updateCar(
+  id: number,
+  data: Prisma.CarUpdateInput
+) {
   await prisma.car.update({
     where: { id },
     data
@@ -43,10 +47,12 @@ export async function deleteCar(id: number) {
 
 export async function toggleCarStatus(id: number, currentStatus: string) {
   const newStatus = currentStatus === 'Tersedia' ? 'Disewa' : 'Tersedia'
+
   await prisma.car.update({
     where: { id },
     data: { status: newStatus }
   })
+
   revalidatePath('/')
   revalidatePath('/admin')
   revalidatePath(`/car/${id}`)
@@ -73,8 +79,10 @@ export async function createBooking(data: {
       status: 'PENDING',
     },
   })
+
   revalidatePath('/')
   revalidatePath('/admin')
+
   return booking
 }
 
@@ -83,7 +91,9 @@ export async function updateBookingStatus(id: number, status: string) {
     where: { id },
     data: { status },
   })
+
   revalidatePath('/admin')
+
   return booking
 }
 

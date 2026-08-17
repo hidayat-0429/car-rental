@@ -2,13 +2,24 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
-export default function ClientPage({ initialCars }: { initialCars: any[] }) {
-  const [cars, setCars] = useState(initialCars);
+type Car = {
+  id: number;
+  name: string;
+  brand: string;
+  color: string | null;
+  transmission: string | null;
+  horsepower: string | number | null;
+  topSpeed: string | number | null;
+  price: string | number;
+  image: string | null;
+  status: string;
+};
+
+export default function ClientPage({ initialCars }: { initialCars: Car[] }) {
+  const [cars] = useState<Car[]>(initialCars);
   const isLoaded = true;
   
-  type Car = any; // fallback for Car type
   // State
   const [searchQuery, setSearchQuery] = useState('');
   const [activeBrand, setActiveBrand] = useState<string>('Semua');
@@ -256,7 +267,7 @@ export default function ClientPage({ initialCars }: { initialCars: any[] }) {
             <div className="text-6xl mb-6 opacity-50">🔍</div>
             <h3 className="text-2xl font-serif text-white mb-2">Tidak ada hasil ditemukan</h3>
             <p className="text-neutral-500 mb-8 max-w-md mx-auto">
-              Maaf, supercar dengan pencarian "{searchQuery}" pada merek "{activeBrand}" tidak tersedia saat ini.
+              Maaf, supercar dengan pencarian &quot;{searchQuery}&quot; pada merek &quot;{activeBrand}&quot; tidak tersedia saat ini.
             </p>
             <button 
               onClick={() => { setSearchQuery(''); setActiveBrand('Semua'); }}
@@ -385,13 +396,13 @@ export default function ClientPage({ initialCars }: { initialCars: any[] }) {
                 <div className="text-[#E6D5B8] flex gap-1 mb-6 text-xl">
                   <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
-                <p className="text-neutral-300 italic mb-8 leading-relaxed text-lg">"{testi.quote}"</p>
+                <p className="text-neutral-300 italic mb-8 leading-relaxed text-lg">&quot;{testi.quote}&quot;</p>
                 <div className="mt-auto border-t border-neutral-800 pt-6">
                   <div className="font-bold text-white text-lg">{testi.name}</div>
                   <div className="text-neutral-500 text-sm">{testi.city}</div>
                 </div>
                 {/* Decorative quote mark */}
-                <div className="absolute top-6 right-8 text-6xl text-neutral-800/30 font-serif leading-none select-none">"</div>
+                <div className="absolute top-6 right-8 text-6xl text-neutral-800/30 font-serif leading-none select-none">&quot;</div>
               </div>
             ))}
           </div>
