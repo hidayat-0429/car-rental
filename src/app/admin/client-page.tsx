@@ -19,6 +19,7 @@ import {
   toggleCarStatus,
   updateBookingStatus,
 } from '../actions'
+import { logout } from '../login/actions'
 
 type Car = Awaited<ReturnType<typeof getCars>>[number]
 type Booking = Awaited<ReturnType<typeof getBookings>>[number]
@@ -298,6 +299,13 @@ export default function AdminDashboard({
               Admin
             </span>
           </h1>
+          
+          <button 
+            onClick={() => logout()}
+            className="text-xs bg-neutral-900 hover:bg-red-500/20 text-neutral-400 hover:text-red-400 px-4 py-2 rounded-lg transition-colors border border-neutral-800 hover:border-red-500/30 ml-4"
+          >
+            Keluar
+          </button>
         </div>
       </nav>
 
