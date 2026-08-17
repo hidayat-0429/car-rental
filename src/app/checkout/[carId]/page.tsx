@@ -15,8 +15,8 @@ export default async function CheckoutPage({ params }: { params: Promise<{ carId
     <div className="min-h-screen bg-[#0A0A0A] text-[#E5E5E5]">
       {/* Nav */}
       <nav className="sticky top-0 z-50 glass border-b border-neutral-800 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href={`/car/${car.id}`} className="text-neutral-400 hover:text-[#E6D5B8] transition-colors flex items-center gap-2 text-sm">
-          <span>&larr;</span> Kembali
+        <Link href="/" className="text-neutral-400 hover:text-[#E6D5B8] transition-colors flex items-center gap-2 text-sm">
+          <span>&larr;</span> Kembali ke Garasi
         </Link>
         <span className="text-[#E6D5B8] text-sm font-bold tracking-widest uppercase">Checkout</span>
       </nav>
