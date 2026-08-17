@@ -69,14 +69,7 @@ export default function ClientPage({ initialCars }: { initialCars: Car[] }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsBookingSuccess(true);
-    setTimeout(() => {
-      setBookingCar(null);
-      setIsBookingSuccess(false);
-    }, 3000);
-  };
+
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#E5E5E5] font-sans selection:bg-[#E6D5B8] selection:text-[#0A0A0A]">
@@ -333,12 +326,12 @@ export default function ClientPage({ initialCars }: { initialCars: Car[] }) {
                     </div>
                     
                     {car.status === 'Tersedia' ? (
-                      <button 
-                        onClick={() => setBookingCar(car)}
-                        className="bg-white text-[#0A0A0A] hover:bg-[#E6D5B8] px-6 py-3 rounded-full font-bold text-sm transition-colors hover-lift"
+                      <Link 
+                        href={`/checkout/${car.id}`}
+                        className="bg-white text-[#0A0A0A] hover:bg-[#E6D5B8] px-6 py-3 rounded-full font-bold text-sm transition-colors hover-lift inline-block text-center"
                       >
                         Reservasi
-                      </button>
+                      </Link>
                     ) : (
                       <button disabled className="bg-neutral-800 text-neutral-500 px-6 py-3 rounded-full font-bold text-sm cursor-not-allowed">
                         Disewa
@@ -474,105 +467,6 @@ export default function ClientPage({ initialCars }: { initialCars: Car[] }) {
           </div>
         </div>
       </footer>
-
-      {/* 9. BOOKING MODAL */}
-      {bookingCar && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-sm" onClick={() => !isBookingSuccess && setBookingCar(null)}></div>
-          
-          <div className="bg-[#121212] border border-neutral-800 rounded-3xl w-full max-w-lg relative z-10 overflow-hidden animate-scaleIn shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col max-h-[90vh]">
-            {isBookingSuccess ? (
-              <div className="p-12 text-center">
-                <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-12 h-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-serif text-white mb-4">Reservasi Berhasil!</h3>
-                <p className="text-neutral-400">Concierge kami akan segera menghubungi Anda via WhatsApp untuk konfirmasi pengiriman {bookingCar.name}.</p>
-              </div>
-            ) : (
-              <>
-                {/* Modal Header */}
-                <div className="p-6 border-b border-neutral-800 flex justify-between items-start bg-neutral-900/50">
-                  <div>
-                    <span className="text-[#E6D5B8] text-xs font-bold uppercase tracking-wider mb-1 block">{bookingCar.brand}</span>
-                    <h3 className="text-2xl font-serif text-white">{bookingCar.name}</h3>
-                    <div className="mt-2 text-xl font-bold text-white">
-                      {bookingCar.price} <span className="text-sm font-normal text-neutral-500">/ hari</span>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => setBookingCar(null)}
-                    className="w-10 h-10 rounded-full bg-[#0A0A0A] flex items-center justify-center text-neutral-400 hover:text-white transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-                
-                {/* Modal Form */}
-                <div className="p-6 overflow-y-auto no-scrollbar">
-                  <form onSubmit={handleBookingSubmit} className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-neutral-400 mb-2">Nama Lengkap</label>
-                      <input 
-                        required 
-                        type="text" 
-                        className="w-full bg-[#0A0A0A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#E6D5B8] transition-colors" 
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-neutral-400 mb-2">Nomor WhatsApp</label>
-                      <input 
-                        required 
-                        type="tel" 
-                        className="w-full bg-[#0A0A0A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#E6D5B8] transition-colors" 
-                        placeholder="+62 812..."
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-2">Mulai Sewa</label>
-                        <input 
-                          required 
-                          type="date" 
-                          className="w-full bg-[#0A0A0A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#E6D5B8] transition-colors [color-scheme:dark]" 
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-2">Durasi</label>
-                        <select className="w-full bg-[#0A0A0A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#E6D5B8] transition-colors appearance-none">
-                          <option value="1">1 Hari</option>
-                          <option value="3">3 Hari</option>
-                          <option value="7">7 Hari</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-neutral-400 mb-2">Catatan Khusus (Opsional)</label>
-                      <textarea 
-                        rows={3} 
-                        className="w-full bg-[#0A0A0A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#E6D5B8] transition-colors resize-none" 
-                        placeholder="Lokasi pengiriman spesifik..."
-                      />
-                    </div>
-                    
-                    <div className="pt-4 border-t border-neutral-800">
-                      <button 
-                        type="submit" 
-                        className="w-full bg-[#E6D5B8] text-[#0A0A0A] py-4 rounded-xl font-bold text-lg hover:bg-white transition-colors"
-                      >
-                        Konfirmasi Reservasi
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* 10. FLOATING BUTTONS */}
       <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-4">
