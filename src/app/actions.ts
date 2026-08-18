@@ -92,6 +92,20 @@ export async function updateBookingStatus(id: number, status: string) {
     data: { status },
   })
 
+  // Sync car status based on booking status
+  if (status === 'PAID') {
+    await prisma.car.update({
+      where: { id: booking.carId },
+      data: { status: 'Disewa' }
+    })
+  } else if (status === 'COMPLETED' || status === 'CANCELLED') {
+    await prisma.car.update({
+      where: { id: booking.carId },
+      data: { status: 'Tersedia' }
+    })
+  }
+
+  revalidatePath('/')
   revalidatePath('/admin')
 
   return booking
